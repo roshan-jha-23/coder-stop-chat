@@ -9,6 +9,7 @@ import SignOutButton from "@/app/components/ui/SignOutButton";
 import FriendRequestSidebarOptions from "@/app/components/FriendRequestSidebarOptions";
 import axios from "axios";
 import { fetchRedis } from "@/helpers/redis";
+import { getFriendsByUserId } from "@/helpers/get-friends-by-user-id";
 interface layoutProps {
   children: ReactNode;
 }
@@ -34,6 +35,7 @@ const layout = async ({ children }: layoutProps) => {
   if (!session) {
     notFound();
   }
+  const friends=await getFriendsByUserId(session.user.id)
   const unseenRequestCount=(await fetchRedis('smembers',`user:${session.user.id}:incoming_friend_requests`)as User[]).length
   return (
     <div className="w-full flex h-screen">
