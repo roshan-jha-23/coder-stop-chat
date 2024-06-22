@@ -1,6 +1,6 @@
 "use client";
 import { FC, useState } from "react";
-import Button from "../components/ui/Button";
+import Button from "../../components/ui/Button";
 import { signIn } from "next-auth/react";
 import toast from "react-hot-toast";
 

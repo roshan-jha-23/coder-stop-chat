@@ -10,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 interface AddFriendButtonProps {
   
 }
+console.log("yaha aaya 0");
 type FormData = z.infer<typeof addFriendValidator>;
 
 const AddFriendButton: FC<AddFriendButtonProps> = ({}) => {
@@ -27,7 +28,7 @@ const AddFriendButton: FC<AddFriendButtonProps> = ({}) => {
   const addFriend = async (email: string) => {
     try {
       const validatedEmail = addFriendValidator.parse({ email })
-
+     console.log("yaha aaya")
       await axios.post('/api/friends/add', {
         email: validatedEmail,
       })
@@ -35,7 +36,7 @@ const AddFriendButton: FC<AddFriendButtonProps> = ({}) => {
       setShowSuccessState(true)
     } catch (error) {
         
-        
+        console.log("yaha aaya 2");
       if (error instanceof z.ZodError) {
         setError('email', { message: error.message })
         return
@@ -51,6 +52,7 @@ const AddFriendButton: FC<AddFriendButtonProps> = ({}) => {
   }
 
   const onSubmit = (data: FormData) => {
+    console.log("yaha aaya 3");
     addFriend(data.email)
   }
     
