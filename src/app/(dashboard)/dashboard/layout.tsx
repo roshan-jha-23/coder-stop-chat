@@ -5,6 +5,7 @@ import { FC, ReactNode } from "react";
 import Link from "next/link";
 import { Icon, Icons } from "@/app/components/Icons";
 import Image from "next/image";
+import SignOutButton from "@/app/components/ui/SignOutButton";
 interface layoutProps {
   children: ReactNode;
 }
@@ -124,4 +125,4 @@ const layout = async ({ children }: layoutProps) => {
   );
 };
 
-export default Layout;
+export default layout;
