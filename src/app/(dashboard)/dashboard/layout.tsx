@@ -6,6 +6,9 @@ import Link from "next/link";
 import { Icon, Icons } from "@/app/components/Icons";
 import Image from "next/image";
 import SignOutButton from "@/app/components/ui/SignOutButton";
+import FriendRequestSidebarOptions from "@/app/components/FriendRequestSidebarOptions";
+import axios from "axios";
+import { fetchRedis } from "@/helpers/redis";
 interface layoutProps {
   children: ReactNode;
 }
@@ -31,6 +34,7 @@ const layout = async ({ children }: layoutProps) => {
   if (!session) {
     notFound();
   }
+  const unseenRequestCount=(await fetchRedis('smembers',`user:${session.user.id}:incoming_friend_requests`)as User[]).length
   return (
     <div className="w-full flex h-screen">
       <div className="md:hidden">
