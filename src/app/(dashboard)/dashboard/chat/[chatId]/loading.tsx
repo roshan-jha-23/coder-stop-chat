@@ -1,3 +1,4 @@
+import ChatInput from "@/app/components/ChatInput";
 import { FC } from "react";
 import Skeleton from "react-loading-skeleton";
 
@@ -75,11 +76,11 @@ const loading: FC<loadingProps> = ({}) => {
 
       {/* chat input */}
 
-      {/* <ChatInput
+       <ChatInput
         chatPartner={chatPartner}
         img={session.user.image}
         chatId={chatId}
-      /> */}
+      /> 
     </div>
   );
 };

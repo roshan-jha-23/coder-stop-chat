@@ -5,6 +5,12 @@ import { getServerSession } from "next-auth";
 import { notFound } from "next/navigation";
 import { FC } from "react";
 
+interface IncomingFriendRequest {
+  senderId: string;
+  senderEmail: string | null | undefined;
+  senderName: string | null | undefined;
+}
+
 const page = async () => {
   const session = await getServerSession(authOptions);
   if (!session) notFound();
@@ -18,11 +24,15 @@ const page = async () => {
   const incomingFriendRequests = await Promise.all(
     incomingSenderIds.map(async (senderId) => {
       const sender = (await fetchRedis("get", `user:${senderId}`)) as string;
-      const senderParsed = JSON.parse(sender) as User;
+      const senderParsed = JSON.parse(sender) as {
+        email: string;
+        name: string;
+      };
 
       return {
         senderId,
         senderEmail: senderParsed.email,
+        senderName: senderParsed.name,
       };
     })
   );

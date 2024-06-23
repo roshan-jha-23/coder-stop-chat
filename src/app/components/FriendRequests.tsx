@@ -7,6 +7,12 @@ import { Check, UserPlus, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { FC, useEffect, useState } from "react";
 
+interface IncomingFriendRequest {
+  senderId: string;
+  senderEmail: string | null | undefined;
+  senderName: string | null | undefined;
+}
+
 interface FriendRequestsProps {
   incomingFriendRequests: IncomingFriendRequest[];
   sessionId: string;
@@ -30,9 +36,13 @@ const FriendRequests: FC<FriendRequestsProps> = ({
     const friendRequestHandler = ({
       senderId,
       senderEmail,
+      senderName,
     }: IncomingFriendRequest) => {
       console.log("function got called");
-      setFriendRequests((prev):any => [...prev, { senderId, senderEmail }]);
+      setFriendRequests((prev) => [
+        ...prev,
+        { senderId, senderEmail, senderName },
+      ]);
     };
 
     pusherClient.bind("incoming_friend_requests", friendRequestHandler);
@@ -73,7 +83,9 @@ const FriendRequests: FC<FriendRequestsProps> = ({
         friendRequests.map((request) => (
           <div key={request.senderId} className="flex gap-4 items-center">
             <UserPlus className="text-black" />
-            <p className="font-medium text-lg">{request.senderEmail}</p>
+            <p className="font-medium text-lg">
+              {request.senderEmail} ({request.senderName})
+            </p>
             <button
               onClick={() => acceptFriend(request.senderId)}
               aria-label="accept friend"
