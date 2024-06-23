@@ -1,6 +1,6 @@
 'use client'
-import ChatInput from "@/components/ChatInput";
-import Messages from "@/components/Messages";
+import ChatInput from "@/app/components/ChatInput";
+import Messages from "@/app/components/Messages";
 import { fetchRedis } from "@/helpers/redis";
 import { authOptions } from "@/lib/auth";
 import { messageArrayValidator } from "@/lib/validations/message";
