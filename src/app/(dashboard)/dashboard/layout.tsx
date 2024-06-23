@@ -1,42 +1,51 @@
+import { Icon, Icons } from "@/app/components/Icons";
+import SignOutButton from "@/app/components/SignOutButton";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
+import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FC, ReactNode } from "react";
-import Link from "next/link";
-import { Icon, Icons } from "@/app/components/Icons";
-import Image from "next/image";
-import SignOutButton from "@/app/components/ui/SignOutButton";
 import FriendRequestSidebarOptions from "@/app/components/FriendRequestSidebarOptions";
-import axios from "axios";
 import { fetchRedis } from "@/helpers/redis";
 import { getFriendsByUserId } from "@/helpers/get-friends-by-user-id";
-interface layoutProps {
+import SidebarChatList from "@/app/components/SidebarChatList";
+import MobileChatLayout from "@/app/components/MobileChatLayout";
+import { SidebarOption } from "@/types/typings";
+
+interface LayoutProps {
   children: ReactNode;
 }
 
-interface sidebarOptions {
-  id: number;
-  name: string;
-  href: string;
-  Icon: Icon;
-}
+// Done after the video and optional: add page metadata
+export const metadata = {
+  title: "FriendZone | Dashboard",
+  description: "Your dashboard",
+};
 
-const sidebarOptions: sidebarOptions[] = [
+const sidebarOptions: SidebarOption[] = [
   {
     id: 1,
-    name: "Add Frriend",
+    name: "Add friend",
     href: "/dashboard/add",
     Icon: "UserPlus",
   },
 ];
 
-const layout = async ({ children }: layoutProps) => {
+const Layout = async ({ children }: LayoutProps) => {
   const session = await getServerSession(authOptions);
-  if (!session) {
-    notFound();
-  }
-  const friends=await getFriendsByUserId(session.user.id)
-  const unseenRequestCount=(await fetchRedis('smembers',`user:${session.user.id}:incoming_friend_requests`)as User[]).length
+  if (!session) notFound();
+
+  const friends = await getFriendsByUserId(session.user.id);
+  console.log("friends", friends);
+
+  const unseenRequestCount = (
+    (await fetchRedis(
+      "smembers",
+      `user:${session.user.id}:incoming_friend_requests`
+    )) as User[]
+  ).length;
+
   return (
     <div className="w-full flex h-screen">
       <div className="md:hidden">
@@ -131,4 +140,4 @@ const layout = async ({ children }: layoutProps) => {
   );
 };
 
-export default layout;
+export default Layout;

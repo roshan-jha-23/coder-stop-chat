@@ -1,10 +1,8 @@
-import { db } from "@/lib/redis.";
-import Button from "./components/ui/Button";
+"use client";
 
-export default async function Home() {
-  const user={
-    
-  }
 
-  return <Button className="px-20 mx-20" variant='danger'size='medium'>HAA BEE MC</Button>
+import { signOut } from "next-auth/react";
+
+export default function Home() {
+  return <button onClick={() => signOut()}>Sign out</button>;
 }
