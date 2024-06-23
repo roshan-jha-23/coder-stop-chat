@@ -11,13 +11,20 @@ import { fetchRedis } from "@/helpers/redis";
 import { getFriendsByUserId } from "@/helpers/get-friends-by-user-id";
 import SidebarChatList from "@/app/components/SidebarChatList";
 import MobileChatLayout from "@/app/components/MobileChatLayout";
-import { SidebarOption } from "@/types/typings";
+
+
+interface SidebarOption {
+  id: number;
+  name: string;
+  href: string;
+  Icon: Icon; // Icon is now a key of the Icons object
+}
+
 
 interface LayoutProps {
   children: ReactNode;
 }
 
-// Done after the video and optional: add page metadata
 export const metadata = {
   title: "FriendZone | Dashboard",
   description: "Your dashboard",
@@ -32,7 +39,7 @@ const sidebarOptions: SidebarOption[] = [
   },
 ];
 
-const Layout = async ({ children }: LayoutProps) => {
+const Layout: FC<LayoutProps> = async ({ children }) => {
   const session = await getServerSession(authOptions);
   if (!session) notFound();
 

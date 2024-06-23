@@ -1,19 +1,34 @@
 "use client";
-
+import { Icon, Icons } from "@/app/components/Icons";
 import { Transition, Dialog } from "@headlessui/react";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { FC, Fragment, useEffect, useState } from "react";
-import { Icons } from "./Icons";
+
 import SignOutButton from "./SignOutButton";
 import Button, { buttonVariants } from "./ui/Button";
 import FriendRequestSidebarOptions from "./FriendRequestSidebarOptions";
 import SidebarChatList from "./SidebarChatList";
 import { Session } from "next-auth";
-import { SidebarOption } from "@/types/typings";
+
 import { usePathname } from "next/navigation";
 
+interface SidebarOption {
+  id: number;
+  name: string;
+  href: string;
+  Icon: Icon; // Icon is now a key of the Icons object
+}
+
+const sidebarOptions: SidebarOption[] = [
+  {
+    id: 1,
+    name: "Add friend",
+    href: "/dashboard/add",
+    Icon: "UserPlus",
+  },
+];
 interface MobileChatLayoutProps {
   friends: User[];
   session: Session;
