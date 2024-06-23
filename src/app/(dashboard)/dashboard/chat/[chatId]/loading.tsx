@@ -76,11 +76,11 @@ const loading: FC<loadingProps> = ({}) => {
 
       {/* chat input */}
 
-       <ChatInput
+       {/* <ChatInput
         chatPartner={chatPartner}
         img={session.user.image}
         chatId={chatId}
-      /> 
+      />  */}
     </div>
   );
 };
