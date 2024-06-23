@@ -44,18 +44,18 @@ const page = async ({}) => {
   );
 
   return (
-    <div className="container py-12">
+    <div className="container bg-gradient-to-r from-purple-700 via-pink-500 to-red-500 py-12 text-white">
       <h1 className="font-bold text-5xl mb-8">Recent chats</h1>
       {friendsWithLastMessage.length === 0 ? (
-        <p className="text-sm text-zinc-500">Nothing to show here...</p>
+        <p className="text-sm text-gray-300">Nothing to show here...</p>
       ) : (
         friendsWithLastMessage.map((friend) => (
           <div
             key={friend.id}
-            className="relative bg-zinc-50 border border-zinc-200 p-3 rounded-md"
+            className="relative bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 border border-purple-700 p-3 rounded-md shadow-lg"
           >
             <div className="absolute right-4 inset-y-0 flex items-center">
-              <ChevronRight className="h-7 w-7 text-zinc-400" />
+              <ChevronRight className="h-7 w-7 text-yellow-400" />
             </div>
 
             <Link
@@ -66,10 +66,10 @@ const page = async ({}) => {
               className="relative sm:flex"
             >
               <div className="mb-4 flex-shrink-0 sm:mb-0 sm:mr-4">
-                <div className="relative h-6 w-6">
+                <div className="relative h-10 w-10">
                   <Image
                     referrerPolicy="no-referrer"
-                    className="rounded-full"
+                    className="rounded-full border-2 border-white"
                     alt={`${friend.name} profile picture`}
                     src={friend.image}
                     fill
@@ -78,11 +78,13 @@ const page = async ({}) => {
               </div>
 
               <div>
-                <h4 className="text-lg font-semibold">{friend.name}</h4>
+                <h4 className="text-lg font-semibold text-yellow-300">
+                  {friend.name}
+                </h4>
                 <p className="mt-1 max-w-md">
                   {friend.lastMessage ? (
                     <>
-                      <span className="text-zinc-400">
+                      <span className="text-yellow-400">
                         {friend.lastMessage.senderId === session.user.id
                           ? "You: "
                           : ""}
@@ -90,7 +92,7 @@ const page = async ({}) => {
                       {friend.lastMessage.text}
                     </>
                   ) : (
-                    <span className="text-zinc-400">No messages yet</span>
+                    <span className="text-yellow-400">No messages yet</span>
                   )}
                 </p>
               </div>
